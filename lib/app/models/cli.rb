@@ -129,6 +129,18 @@ hjw.......................................... \/_____/.................
         puts art
     end 
 
+    def self.print_tomb
+        art = <<-'HRD'
+      ,-=-.       ______     
+     /  +  \     />----->  
+     | ~~~ |    //     /  
+     |R.I.P|   //     /     
+\vV,,|_____|V,//_____/VvV,v,
+
+        HRD
+        puts art
+    end
+
 
     def self.title_screen
         system('clear')
@@ -303,7 +315,7 @@ hjw.......................................... \/_____/.................
                 work_status = "Part Time"
             end 
     
-            puts "\n\nHours scheduled Form\n\nEmployee: #{@@resume[:name]}\n Hours this Week: #{user_obj.hours_scheduled}\n Status: #{work_status}\n"
+            puts "\n\nHOURS SCHEDULED FORM\n\nEmployee: #{@@resume[:name]}\n Hours this Week: #{user_obj.hours_scheduled}\n Status: #{work_status}\n"
         
             selection_hash = new_prompt.collect do 
                 key(:hrs).ask("How many hours do you want to work", convert: :int)
@@ -343,6 +355,8 @@ hjw.......................................... \/_____/.................
                 other_half = dead_pets_names.join(", ")
 
                 puts first_half + other_half
+
+                self.print_tomb
 
                 puts "\nYou're going to have to bury them :("
             else
