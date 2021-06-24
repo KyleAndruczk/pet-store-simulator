@@ -312,17 +312,21 @@ class CLI
         end 
 
         if selection == "EWWWW! What's that smell?"
-            dead_pets = []
-            user_obj.pets.each do |pet|
-                if pet.alive == false
-                    dead_pets << pet
-                end
-                dead_pets.each do |pet|
-                    Pet.destroy(pet.id)
-                end
-            end
-            dead_pets
-            sleep(2)
+            # dead_pets = []
+            # user_obj.pets.each do |pet|
+            #     if pet.alive == false
+            #         dead_pets << pet
+            #     end
+            #     dead_pets.each do |pet|
+            #         Pet.destroy(pet.id)
+            #     end
+            # end
+            # dead_pets
+            # sleep(2)
+            dead_pets = user_obj.find_remove_dead_pets
+
+            print dead_pets
+            sleep(3)
             self.return_to_work
         end
     

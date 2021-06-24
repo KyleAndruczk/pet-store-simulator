@@ -57,15 +57,20 @@ class Employee < ActiveRecord::Base
     end
 
     def find_remove_dead_pets
-        dead_pets = []
-        self.pets.each do |pet|
-            if pet.alive == false
-                dead_pets << pet
-            end
-            dead_pets.each do |pet|
-                Pet.destroy(pet.id)
-            end
-        end
+        # dead_pets = []
+        # self.pets.each do |pet|
+        #     if pet.alive == false
+        #         dead_pets << pet
+        #     end
+        #     dead_pets.each do |pet|
+        #         Pet.destroy(pet.id)
+        #     end
+        # end
+
+        dead_pets = self.pets.select { |pet| pet.alive == false }
+        # dead_pets.each do |pet|
+        #     Pet.destroy(pet.id)
+        # end
         dead_pets
     end
 
