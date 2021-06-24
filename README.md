@@ -6,8 +6,9 @@ Pet Store Simulator is a CLI game entirely built in Ruby. This game simulates th
 
 1. Clone the repository to a local directory. 
 2. Run 'bundle install' in your terminal install/update all gems.
-3. Start a new game by running 'ruby ./bin/run.rb' in your terminal.
-4. Have fun!!!
+3. (optional) Run 'rake db:seed' in your terminal to change the names of all pets, stores, and employees.
+4. Start a new game by running 'ruby ./bin/run.rb' in your terminal. 
+5. Have fun!!!
 
 # Video Demo
 
