@@ -61,7 +61,9 @@ class Employee < ActiveRecord::Base
         self.pets.each do |pet|
             if pet.alive == false
                 dead_pets << pet
-                pet.clear
+            end
+            dead_pets.each do |pet|
+                Pet.destroy(pet.id)
             end
         end
         dead_pets
