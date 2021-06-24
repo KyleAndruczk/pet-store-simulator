@@ -247,16 +247,17 @@ class CLI
             system('clear')
             self.title
             prompt = TTY::Prompt.new
-            @@chosen_store = prompt.select("What store do you want to apply to?\n") do |menu|
+            @@chosen_store = prompt.select("What store do you want to change to?\n") do |menu|
                 Store.all.map do |store|
                 menu.choice "#{store.name.rjust(20)}" + "\n\tAverage Wage: $#{store.avg_wage}" + "\t |   Number of Employees: #{store.num_emps_at_store}\n"
             end
+            
         end
 
         end
 
         if selection == "Quit my job!"
-            Employee.destroy(employee.id)
+            Employee.destroy(user_obj.id)
                 puts "\nCongratulations, you have quit your job!"
                 sleep(2)
                 CLI.title_screen
