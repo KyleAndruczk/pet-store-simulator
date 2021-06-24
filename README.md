@@ -12,7 +12,7 @@ Pet Store Simulator is a CLI game entirely built in Ruby. This game simulates th
 
 # Video Demo
 
-
+https://drive.google.com/file/d/1vdz7fQu7axIJsGeX50HtcK7g2hObB7H7/view?usp=sharing
 
 # License
 
