@@ -6,7 +6,7 @@ Pet Store Simulator is a CLI game based in Ruby that simulates the experience of
 
 1. Clone the repository to a local directory. 
 2. Run 'bundle install' in your terminal.
-3. Play the game by running 'ruby ./bin/run.rb' in your terminal.
+3. Start a new game by running 'ruby ./bin/run.rb' in your terminal.
 4. Have fun!!!
 
 
