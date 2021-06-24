@@ -299,12 +299,11 @@ class CLI
                 end 
             end
 
-<<<<<<< HEAD
-        if selection == "EWWWW! What's that smell?"
+        elsif selection == "EWWWW! What's that smell?"
             user_obj.find_remove_dead_pets
-        end
+        
 
-        if selection == "Change what store I work at"
+        elsif selection == "Change what store I work at"
             system('clear')
             self.title
             prompt = TTY::Prompt.new
@@ -312,25 +311,17 @@ class CLI
                 Store.all.map do |store|
                 menu.choice "#{store.name.rjust(20)}" + "\n\tAverage Wage: $#{store.avg_wage}" + "\t |   Number of Employees: #{store.num_emps_at_store}\n"
             end
-        end
+        
 
-        end
+    
 
-        if selection == "Quit my job!"
+        elsif selection == "Quit my job!"
             Employee.destroy(employee.id)
                 puts "\nCongratulations, you have quit your job!"
                 sleep(2)
                 CLI.title_screen
         end
 
-    end
-=======
->>>>>>> kyle
-
-
-
-
-        end 
 
     end
 
