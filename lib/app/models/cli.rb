@@ -273,6 +273,13 @@ class CLI
             system('clear')
             self.title
             new_prompt = TTY::Prompt.new
+<<<<<<< HEAD
+            if user_obj.full_time
+                work_status = "Full Time"
+            else
+                work_status = "Part Time"
+            end
+=======
     
             if user_obj.full_time 
                 work_status = "Full Time"
@@ -280,6 +287,7 @@ class CLI
                 work_status = "Part Time"
             end 
     
+>>>>>>> 3f8058a0f9369b24b05c8e8594a7fed8ebf0c905
             puts "\n\nHours scheduled Form\n\nEmployee: #{@@resume[:name]}\n Hours this Week: #{user_obj.hours_scheduled}\n Status: #{work_status}\n"
         
             selection_hash = new_prompt.collect do 
