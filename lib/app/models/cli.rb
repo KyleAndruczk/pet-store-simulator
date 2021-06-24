@@ -274,13 +274,13 @@ class CLI
         end
 
         if selection == "Change my schedule"
-            system(‘clear’)
+            system('clear')
             self.title
             new_prompt = TTY::Prompt.new
             if user_obj.full_time
-                work_status = “Full Time”
+                work_status = "Full Time"
             else
-                work_status = “Part Time”
+                work_status = "Part Time"
             end
             puts "\n\nHours scheduled Form\n\nEmployee: #{@@resume[:name]}\n Hours this Week: #{user_obj.hours_scheduled}\n Status: #{work_status}\n"
             selection_hash = new_prompt.collect do
@@ -293,10 +293,10 @@ class CLI
             end
             if full_time
                 puts "#{@@boss_name}: Hmmm . . . #{selection_hash[:hrs]} is a lot. You can be full-time."
-                work_status = “Full time”
+                work_status = "Full time"
             else
                 puts "#{@@boss_name}: No way you can have full-time benefits--way too expensive! Maybe I’ll consider you for full time benefits if you do at least 80 hours a week."
-                work_status = “Part time”
+                work_status = "Part time"
             end
             user_obj.full_time = full_time
             user_obj.hours_scheduled = selection_hash[:hrs]
