@@ -1,5 +1,6 @@
 require "tty-prompt"
 require "tty-font"
+require "tty-table"
 # require_relative "/../../../db/seeds.rb"
 # require_relative "/ascii_art"
 class CLI
@@ -214,12 +215,27 @@ class CLI
             # for quitting, Delete the obj from the db (.delete), then call self.start_menu
         end 
 
-        if selection == "View the all of the pets at my store"
-            pet_names = user_obj.pets.map {|pet| pet.nickname}
+        if selection == "View the all of the pets that I have"
 
-            puts pet_names
 
+
+            all_pets = user_obj.pets.each_with_object([]) do |pet, fin_arr|
+
+                vals = pet.attributes.values
+
+                vals_as_strs = vals.map do |val|
+                    val.to_s
+                end 
+
+                fin_arr << vals_as_strs[1..-1]
+            end 
+
+            table = TTY::Table.new(["Nickname","Species", "Weight (lbs)", "Age", "Alive", "Years in Captivity", "Price ($)"], [all_pets[0], all_pets[1], all_pets[2], all_pets[3], all_pets[4]])
+            puts table.render(:ascii)
+            sleep(2)
+            self.start_work
         elsif selection == "Adopt a new pet"
+
         
         end 
 
@@ -255,7 +271,23 @@ class CLI
 
     end
 
-    self
+    def self.adopt_a_new_pet
+        new_prompt = TTY::Prompt.new
+
+        selection_hash = prompt.collect do 
+            key(:name).ask("What species is the pet?")
+
+            key(:age).ask("What is the ", convert: :int)
+            
+            key(:hours).ask("How many hours do you want to work a week?", convert: :int)
+
+            key(:exp).ask("How many years experience do you have?", convert: :int)
+        end 
+
+
+    end
+
+    
 
 
 
