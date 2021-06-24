@@ -256,17 +256,10 @@ class CLI
         end
 
         if selection == "Quit my job!"
-            username = @@prompt.ask("Which user would you like to delete?")
-            if self.find_by(name: username) 
-                user = self.find_by(name: username)
-                User.destroy(user.id)
-                puts "\nCongratulations, that user has been officially ghosted!"
+            Employee.destroy(employee.id)
+                puts "\nCongratulations, you have quit your job!"
                 sleep(2)
                 CLI.title_screen
-            
-            else
-            puts "Unable to find this user. Please try again."
-            end
         end
 
     end
