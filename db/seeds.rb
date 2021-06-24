@@ -10,14 +10,14 @@ Employee.destroy_all
 puts "Delete pets!"
 Pet.destroy_all
 
-puts "Delete sales!"
-Sale.destroy_all
+# puts "Delete sales!"
+# Sale.destroy_all
 
-puts "Delete products!"
-Product.destroy_all
+# puts "Delete products!"
+# Product.destroy_all
 
-puts "Delete customers!"
-Customer.destroy_all
+# puts "Delete customers!"
+# Customer.destroy_all
 
 # STORES
 
@@ -28,6 +28,16 @@ end
 # EMPLOYEES
 
 puts "Creating employees..."
+
+# make sure each store has at least 1 employee
+num_stores = Store.all.count
+index = 0
+
+while (index < num_stores) do 
+    Employee.create(name: Faker::FunnyName.name, years_experience: rand(1..5), full_time: rand(0..1), hours_scheduled: rand(0..40), age: rand(16..80), salary: rand(8000..40000), store_id: Store.all[index].id)
+    index += 1
+end 
+
 
 20.times do 
     Employee.create(name: Faker::FunnyName.name, years_experience: rand(1..5), full_time: rand(0..1), hours_scheduled: rand(0..40), age: rand(16..80), salary: rand(8000..40000), store_id: Store.ids.sample)
@@ -67,22 +77,22 @@ puts "Done creating adoptions!"
 
 # puts "Done creating products!"
 
-# CUSTOMERS
+# # CUSTOMERS
 
-puts "Creating customers..."
+# puts "Creating customers..."
 
-7.times do
-    Customer.create(name: Faker::FunnyName.name)
-end
+# 7.times do
+#     Customer.create(name: Faker::FunnyName.name)
+# end
 
-puts "Done creating customers!"
+# puts "Done creating customers!"
 
-# SALES
+# # SALES
 
-puts "Creating sales..."
+# puts "Creating sales..."
 
-15.times do
-    Sale.create(employee_id: Employee.ids.sample, product_id: Product.ids.sample, customer_id: Customer.ids.sample)
-end
+# 15.times do
+#     Sale.create(employee_id: Employee.ids.sample, product_id: Product.ids.sample, customer_id: Customer.ids.sample)
+# end
 
-puts "Done creating sales!"
+# puts "Done creating sales!"
