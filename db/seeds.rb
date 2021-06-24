@@ -59,13 +59,13 @@ puts "Done creating adoptions!"
 
 # PRODUCTS
 
-puts "Creating products..."
+# puts "Creating products..."
 
-20.times do
-    Product.create(store_id: Store.ids.sample, name: , price: rand(1.0..500.0))
-end
+# 20.times do
+#     Product.create(store_id: Store.ids.sample, name: , price: rand(1.0..500.0))
+# end
 
-puts "Done creating products!"
+# puts "Done creating products!"
 
 # CUSTOMERS
 

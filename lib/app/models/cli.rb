@@ -223,6 +223,36 @@ class CLI
         
         end 
 
+        if selection == "EWWWW! What's that smell?"
+            user_obj.find_remove_dead_pets
+        end
+
+        if selection == "Change what store I work at"
+            system('clear')
+            self.title
+            prompt = TTY::Prompt.new
+            @@chosen_store = prompt.select("What store do you want to apply to?\n") do |menu|
+                Store.all.map do |store|
+                menu.choice "#{store.name.rjust(20)}" + "\n\tAverage Wage: $#{store.avg_wage}" + "\t |   Number of Employees: #{store.num_emps_at_store}\n"
+            end
+        end
+
+        end
+
+        if selection == "Quit my job!"
+            username = @@prompt.ask("Which user would you like to delete?")
+            if self.find_by(name: username) 
+                user = self.find_by(name: username)
+                User.destroy(user.id)
+                puts "\nCongratulations, that user has been officially ghosted!"
+                sleep(2)
+                CLI.title_screen
+            
+            else
+            puts "Unable to find this user. Please try again."
+            end
+        end
+
     end
 
     self
