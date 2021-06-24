@@ -1,13 +1,13 @@
 # Pet Store Simulator
 
-Pet Store Simulator is a CLI game entirely built in Ruby. This game simulates the experience of an employee at a pet store. The user can choose a store that he/she wants to work at, change the working hours and job status, choose to work at another store, and quit the job. The user can also view all the pets he/she has, adopt a new pet, and remove all the dead pets.
+Pet Store Simulator is a CLI game entirely built in Ruby. This game simulates the experience of an employee at a pet store. The user can choose a store that they want to work at, change the working hours and job status, choose to work at another store, and quit the job. The user can also view all the pets that they have, adopt a new pet, and remove all the dead pets.
 
 # Instructions
 
 1. Clone the repository to a local directory. 
 2. Run 'bundle install' in your terminal install/update all gems.
-3. (optional) Run 'rake db:seed' in your terminal to change the names of all pets, stores, and employees.
-4. Start a new game by running 'ruby ./bin/run.rb' in your terminal. 
+3. (Technically optional, but can help prevent an error where the code crashes after one inputs their years of experience in their job application) Run 'rake db:migrate' and 'rake db:seed' in your terminal to ensure that all pets, employees, and stores are readable/function properly.
+4. Start a new game by running 'ruby ./bin/run.rb' in your terminal (from the root of the cloned repo). 
 5. Have fun!!!
 
 # Video Demo
