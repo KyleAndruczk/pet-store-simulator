@@ -56,17 +56,30 @@ class Employee < ActiveRecord::Base
         self.pets.sort_by{|pet| pet.years_in_captivity}
     end
 
-    def find_remove_dead_pets
-        dead_pets = []
-        self.pets.each do |pet|
-            if pet.alive == false
-                dead_pets << pet
-            end
-            dead_pets.each do |pet|
-                Pet.destroy(pet.id)
-            end
+    def find_dead_pets
+        # dead_pets = []
+        # self.pets.each do |pet|
+        #     if pet.alive == false
+        #         dead_pets << pet
+        #     end
+        #     dead_pets.each do |pet|
+        #         Pet.destroy(pet.id)
+        #     end
+        # end
+
+        self.pets.select { |pet| pet.alive == false }
+    end
+
+    def remove_dead_pets
+        dead_pets = self.find_dead_pets
+        dead_pets.each do |pet|
+            Pet.destroy(pet.id)
         end
-        dead_pets
+    end
+
+    def remove_all_pets
+        pets_arr = self.pets.ids
+        Pet.destroy(pets_arr)
     end
 
     def self.add_to_db(name, years, full_time, hours, age, salary, store_id)
