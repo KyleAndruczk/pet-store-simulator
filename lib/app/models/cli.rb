@@ -156,7 +156,7 @@ hjw.......................................... \/_____/.................
     def self.start_menu
         new_prompt = TTY::Prompt.new
 
-        selection = new_prompt.select("\n\n Welcome to your new Job!") do |option|
+        selection = new_prompt.select("\n\nWelcome to your new Job!") do |option|
             option.choice "Start Game"
             option.choice "Quit Game"
         end 
@@ -224,7 +224,7 @@ hjw.......................................... \/_____/.................
             full_time = 1
         end
 
-        puts "#{@@boss_name}:  Congratulations, #{@@resume[:name]}, you're hired! #{@@resume[:hours]} hours sounds great! Since you only have #{@@resume[:exp]} years of experience,\n\t you'll be payed half of our average salary\n\t because, ya know, capitalism"
+        puts "#{@@boss_name}:  Congratulations, #{@@resume[:name]}, you're hired! #{@@resume[:hours]} hours sounds great! Since you only have #{@@resume[:exp]} years of experience, you'll be payed half of our average salary\n\t because, ya know, capitalism"
         puts "\nStarting Salary: $#{(avg_wage/2.0).to_i}\tHours Scheduled: #{(@@resume[:hours])}"
         # salary 
         
@@ -370,7 +370,15 @@ hjw.......................................... \/_____/.................
     
         if selection == "Change what store I work at"
 
+            system('clear')
+            self.print_boss_art
+            puts "#{@@boss_name}: FINE! You can leave, but the pets you somehow kept alive (or didn't!) stay with me at my store!"
+            sleep(5)
+
+
             user_obj.remove_all_pets
+
+         
 
             Employee.destroy(user_obj.id)
             self.choose_store

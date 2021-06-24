@@ -5,7 +5,7 @@ class Store < ActiveRecord::Base
     def avg_wage
         wages = self.employees.map { |employee| employee.salary }
 
-        (wages.sum.to_f / wages.count).round(2)
+        (wages.sum.to_f / self.num_emps_at_store).round(2)
     end
 
     def num_emps_at_store
