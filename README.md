@@ -1,6 +1,6 @@
 # Pet Store Simulator
 
-Pet Store Simulator is a CLI game entirely built in Ruby. This game simulates the experience of an employee at a pet store. The user can choose a store that they want to work at, change the working hours and job status, choose to work at another store, and quit the job. The user can also view all the pets that they have, adopt a new pet, and remove all the dead pets.
+Pet Store Simulator is a CLI game entirely built in Ruby. This game simulates the experience of an employee at a pet store. The user can choose a store at which they want to work, change the working hours and job status, choose to work at another store, and quit the job. The user can also view all the pets that they have, adopt a new pet, and remove all of the dead pets.
 
 # Instructions
 
