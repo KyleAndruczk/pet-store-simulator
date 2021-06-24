@@ -265,21 +265,6 @@ class CLI
 
     end
 
-    def self.adopt_a_new_pet
-        new_prompt = TTY::Prompt.new
-
-        selection_hash = prompt.collect do 
-            key(:name).ask("What species is the pet?")
-
-            key(:age).ask("What is the ", convert: :int)
-            
-            key(:hours).ask("How many hours do you want to work a week?", convert: :int)
-
-            key(:exp).ask("How many years experience do you have?", convert: :int)
-        end 
-
-
-    end
 
     
 
