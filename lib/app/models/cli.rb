@@ -196,8 +196,8 @@ class CLI
 
         5.times do
             species = ["Cat", "Dog", "Bird", "Lizard", "Frog"]
-            Pet.create(nickname: Faker::FunnyName.name, species: species.sample, weight: rand(1.0..20.0).round(2), age: rand(1..20), alive: rand(0..1), years_in_captivity: rand(0..10), price: rand(1.5...100.0).round(2))
-            Adoption.create(employee_id: user_obj.id, pet_id: Pet.ids.sample)
+            new_pet = Pet.create(nickname: Faker::FunnyName.name, species: species.sample, weight: rand(1.0..20.0).round(2), age: rand(1..20), alive: rand(0..1), years_in_captivity: rand(0..10), price: rand(1.5...100.0).round(2))
+            Adoption.create(employee_id: user_obj.id, pet_id: new_pet.id)
         end
         # sleep(8)
         self.return_to_work
@@ -298,14 +298,17 @@ class CLI
 
             if full_time
                 puts "#{@@boss_name}: Hmmm . . . #{selection_hash[:hrs]} is a lot. You can be full-time."
-                work_status = "Full time"
+                user_obj.full_time = true
+                work_status = "Full Time"
             else
                 puts "#{@@boss_name}: No way you can have full-time benefits--way too expensive! Maybe I'll consider you for full time benefits if you do at least 80 hours a week."
-                work_status = "Part time"
+                user_obj.full_time = false
+                work_status = "Part Time"
             end 
 
+            
 
-            user_obj.full_time = full_time
+            # user_obj.full_time = full_time
             user_obj.hours_scheduled = selection_hash[:hrs]
 
             puts "\nYou are now scheduled for #{selection_hash[:hrs]} hours and have #{work_status} benefits"
@@ -314,23 +317,22 @@ class CLI
         end 
 
         if selection == "EWWWW! What's that smell?"
-            # dead_pets = []
-            # user_obj.pets.each do |pet|
-            #     if pet.alive == false
-            #         dead_pets << pet
-            #     end
-            #     dead_pets.each do |pet|
-            #         Pet.destroy(pet.id)
-            #     end
-            # end
-            # dead_pets
-            # sleep(2)
             dead_pets = user_obj.find_dead_pets
+            
+            if dead_pets != []
+                first_half =  "\n\nOH NO!! someone forgot to feed these pets: "
+                dead_pets_names = dead_pets.map {|pet| pet.nickname}
+                other_half = dead_pets_names.join(", ")
+
+                puts first_half + other_half
+
+                puts "\nYou're going to have to bury them :("
+            else
+                puts "\n\nHuh, all of the pets are ok--must've been a gas leak"
+            end
 
             user_obj.remove_dead_pets
 
-            print dead_pets
-            sleep(3)
             self.return_to_work
         end
     
@@ -350,8 +352,8 @@ class CLI
         if selection == "Quit my job!"
             user_obj.remove_all_pets
             Employee.destroy(user_obj.id)
-            puts "\nCongratulations, you have quit your job!"
-            sleep(2)
+            puts "\nCongratulations, you have quit your job!\n\nYou set all of your pets at the store free on your way out!"
+            sleep(4)
             CLI.title_screen
         end
 
