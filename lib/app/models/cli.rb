@@ -87,7 +87,6 @@ class CLI
   ______________/%%%%\/\'"'"/\/%%%%\______________
  / :  :  :  /  .\%%%%%%%\"'/%%%%%%%/.  \  :  :  : \
 )  :  :  :  \.  .\%%%%%%/'"\%%%%%%/.  ./  :  :  :  (
-
         HRD
         puts art
     end
@@ -274,46 +273,42 @@ class CLI
             self.return_to_work
         end
 
-        if selection == "Change my Schedule"
-            system('clear')
+        if selection == "Change my schedule"
+            system(‘clear’)
             self.title
             new_prompt = TTY::Prompt.new
-    
-            if user_obj.full_time 
-                work_status = "Full Time"
+            if user_obj.full_time
+                work_status = “Full Time”
             else
-                work_status = "Part Time"
-            end 
-    
+                work_status = “Part Time”
+            end
             puts "\n\nHours scheduled Form\n\nEmployee: #{@@resume[:name]}\n Hours this Week: #{user_obj.hours_scheduled}\n Status: #{work_status}\n"
-        
-            selection_hash = new_prompt.collect do 
+            selection_hash = new_prompt.collect do
                 key(:hrs).ask("How many hours do you want to work", convert: :int)
-    
                 key(:full_time).ask("Do you want to have full-time benefits?")
-            end 
-    
+            end
             self.print_boss_art
-    
             if selection_hash[:hrs] >= 80
                 full_time = rand(0.0..1.0).round
-                if full_time
-                    puts "#{@@boss_name}: Hmmm . . . #{selection_hash[:hrs]} is a lot. You can be full-time."
-                else
-                    # ptus
-                end 
             end
-
-
-
-
-
+            if full_time
+                puts "#{@@boss_name}: Hmmm . . . #{selection_hash[:hrs]} is a lot. You can be full-time."
+                work_status = “Full time”
+            else
+                puts "#{@@boss_name}: No way you can have full-time benefits--way too expensive! Maybe I’ll consider you for full time benefits if you do at least 80 hours a week."
+                work_status = “Part time”
+            end
+            user_obj.full_time = full_time
+            user_obj.hours_scheduled = selection_hash[:hrs]
+            puts "\nYou are now scheduled for #{selection_hash[:hrs]} hours and have #{work_status} benefits"
+            self.return_to_work
         end
 
     
 
         if selection == "EWWWW! What's that smell?"
             user_obj.find_remove_dead_pets
+            self.return_to_work
         end
     
         if selection == "Change what store I work at"
