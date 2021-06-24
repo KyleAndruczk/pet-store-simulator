@@ -1,8 +1,7 @@
 require "tty-prompt"
 require "tty-font"
 require "tty-table"
-# require_relative "/../../../db/seeds.rb"
-# require_relative "/ascii_art"
+
 class CLI
     @@prompt = TTY::Prompt.new
     @@pastel = Pastel.new
@@ -12,7 +11,6 @@ class CLI
     @@user = nil
     @@boss_name
 
-    # system('rake db:seed')
 
     def self.print_title_art
         art = <<-'HRD'
@@ -104,10 +102,6 @@ class CLI
         puts @@pastel.blue(@@font.write("Pet Store Simulator", letter_spacing: 2))
     end
 
-    # def self.art
-
-    # end
-
     def self.start_menu
         new_prompt = TTY::Prompt.new
 
@@ -119,7 +113,6 @@ class CLI
         if selection == "Start Game"
             self.build_resume
             self.choose_store
-            # self.store_stats
             self.get_hired
             self.start_work
         else
@@ -161,8 +154,6 @@ class CLI
         system('clear')
         self.title
         self.print_boss_art
-        
-        # prompt = TTY::Prompt.new
 
         chosen_store_arr = @@chosen_store.split
 
@@ -171,10 +162,6 @@ class CLI
         boss_name = "#{chosen_store_arr[0]}"
         @@boss_name = boss_name[0..((boss_name.length) - 3)]
         
-        # get wage, remove dollar sign
-        # avg_wage = "#{chosen_store_arr[5]}"
-
-        # avg_wage = (avg_wage[1..-1]).to_f
 
         store_obj = Store.all.find { |store| store.name == choosen_store_name_str }
 
@@ -199,7 +186,6 @@ class CLI
             new_pet = Pet.create(nickname: Faker::FunnyName.name, species: species.sample, weight: rand(1.0..20.0).round(2), age: rand(1..20), alive: rand(0..1), years_in_captivity: rand(0..10), price: rand(1.5...100.0).round(2))
             Adoption.create(employee_id: user_obj.id, pet_id: new_pet.id)
         end
-        # sleep(8)
         self.return_to_work
     end
 
@@ -244,7 +230,6 @@ class CLI
             self.return_to_work
         end
         if selection == "Adopt a new pet"
-            # self.adopt_a_new_pet
             system('clear')
             self.title
             new_prompt = TTY::Prompt.new
@@ -260,12 +245,8 @@ class CLI
             system('clear')
             self.title
             
-    
             new_pet = Pet.create(nickname: selection_hash[:nickname], species: selection_hash[:species], weight: rand(1.0..20.0).round(2), age: rand(1..20), alive: 1, years_in_captivity: 0, price: rand(1.5...100.0).round(2))
             Adoption.create(employee_id: user_obj.id, pet_id: new_pet.id)
-    
-    
-            
     
             self.print_boss_art
             puts "#{@@boss_name}:  Alright, #{@@resume[:name]}, fine--I got that new pet you wanted. Its name is #{new_pet.nickname},\n\t and it's an #{new_pet.weight} lbs #{new_pet.age}-year-old #{new_pet.species}. \n\t And the $#{new_pet.price} it costed is coming out of YOUR paycheck!"
@@ -306,9 +287,6 @@ class CLI
                 work_status = "Part Time"
             end 
 
-            
-
-            # user_obj.full_time = full_time
             user_obj.hours_scheduled = selection_hash[:hrs]
 
             puts "\nYou are now scheduled for #{selection_hash[:hrs]} hours and have #{work_status} benefits"
@@ -338,8 +316,6 @@ class CLI
     
         if selection == "Change what store I work at"
 
-            # ids_arr = Employee.ids
-            # ids_arr.delete(user_obj.id)
             user_obj.remove_all_pets
 
             Employee.destroy(user_obj.id)
@@ -370,10 +346,5 @@ class CLI
             self.start_work
         end
     end
-
-    
-
-
-
 
 end
