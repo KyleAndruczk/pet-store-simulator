@@ -123,7 +123,7 @@ class CLI
             self.get_hired
             self.start_work
         else
-            system('clear')
+            exit
         end
     end
 
