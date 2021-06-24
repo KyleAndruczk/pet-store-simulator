@@ -5,24 +5,7 @@ class Employee < ActiveRecord::Base
     has_many :pets, through: :adoptions
     belongs_to :store
 
-
-    def pets_at_my_store
-        # Pet.all.select{|pet| pet.id == self.adoptions.pet_id}
-        self.pets
-        # puts "test"
-    end
-
     def find_dead_pets
-        # dead_pets = []
-        # self.pets.each do |pet|
-        #     if pet.alive == false
-        #         dead_pets << pet
-        #     end
-        #     dead_pets.each do |pet|
-        #         Pet.destroy(pet.id)
-        #     end
-        # end
-
         self.pets.select { |pet| pet.alive == false }
     end
 
