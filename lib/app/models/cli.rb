@@ -87,6 +87,7 @@ class CLI
   ______________/%%%%\/\'"'"/\/%%%%\______________
  / :  :  :  /  .\%%%%%%%\"'/%%%%%%%/.  \  :  :  : \
 )  :  :  :  \.  .\%%%%%%/'"\%%%%%%/.  ./  :  :  :  (
+
         HRD
         puts art
     end
@@ -201,15 +202,12 @@ class CLI
     end
 
     def self.start_work
-        sleep(8)
         system('clear')
         self.title
         # for some reason using @@user.pets later was causing bugs
         user_obj = Employee.all.find {|emp| emp.id == @@user.id}
         
-        5.times do 
-            Adoption.create(employee_id: user_obj.id, pet_id: Pet.ids.sample)
-        end
+
         new_prompt = TTY::Prompt.new
 
         selection = new_prompt.select("\n\n You're at work now, what do you want to do?\n\n") do |option|
@@ -237,74 +235,81 @@ class CLI
                 fin_arr << vals_as_strs[1..-1]
             end 
 
-            table = TTY::Table.new(["Nickname","Species", "Weight (lbs)", "Age", "Alive", "Years in Captivity", "Price ($)"], [all_pets[0], all_pets[1], all_pets[2], all_pets[3], all_pets[4]])
+
+            table = TTY::Table.new(["Nickname","Species", "Weight (lbs)", "Age", "Alive", "Years in Captivity", "Price ($)"], all_pets.uniq)
             puts table.render(:ascii)
-            sleep(2)
-            self.start_work
 
+            self.return_to_work
         end
-
         if selection == "Adopt a new pet"
-        # self.adopt_a_new_pet
+            # self.adopt_a_new_pet
             system('clear')
             self.title
             new_prompt = TTY::Prompt.new
-
+    
             puts "\n\nTime to get a new pet!\n\n"
-
+    
             selection_hash = new_prompt.collect do 
                 key(:species).ask("What species is the pet?")
-
+    
                 key(:nickname).ask("What is the pet's nickname?")
             end 
-
+    
             system('clear')
             self.title
-        
-
-           new_pet = Pet.create(nickname: selection_hash[:nickname], species: selection_hash[:species], weight: rand(1.0..20.0).round(2), age: rand(1..20), alive: 1, years_in_captivity: 0, price: rand(1.5...100.0).round(2))
+            
+    
+            new_pet = Pet.create(nickname: selection_hash[:nickname], species: selection_hash[:species], weight: rand(1.0..20.0).round(2), age: rand(1..20), alive: 1, years_in_captivity: 0, price: rand(1.5...100.0).round(2))
             Adoption.create(employee_id: user_obj.id, pet_id: new_pet.id)
-
-
-        
-
+    
+    
+            
+    
             self.print_boss_art
             puts "#{@@boss_name}:  Alright, #{@@resume[:name]}, fine--I got that new pet you wanted. Its name is #{new_pet.nickname},\n\t and it's an #{new_pet.weight} lbs #{new_pet.age}-year-old #{new_pet.species}. \n\t And the $#{new_pet.price} it costed is coming out of YOUR paycheck!"
             self.return_to_work
         end
-
         if selection == "Change my schedule"
-            system(‘clear’)
+            system('clear')
             self.title
             new_prompt = TTY::Prompt.new
-            if user_obj.full_time
-                work_status = “Full Time”
+    
+            if user_obj.full_time 
+                work_status = "Full Time"
             else
-                work_status = “Part Time”
-            end
+                work_status = "Part Time"
+            end 
+    
             puts "\n\nHours scheduled Form\n\nEmployee: #{@@resume[:name]}\n Hours this Week: #{user_obj.hours_scheduled}\n Status: #{work_status}\n"
-            selection_hash = new_prompt.collect do
+        
+            selection_hash = new_prompt.collect do 
                 key(:hrs).ask("How many hours do you want to work", convert: :int)
+    
                 key(:full_time).ask("Do you want to have full-time benefits?")
-            end
+            end 
+    
             self.print_boss_art
+    
             if selection_hash[:hrs] >= 80
                 full_time = rand(0.0..1.0).round
             end
+
             if full_time
                 puts "#{@@boss_name}: Hmmm . . . #{selection_hash[:hrs]} is a lot. You can be full-time."
-                work_status = “Full time”
+                work_status = "Full time"
             else
-                puts "#{@@boss_name}: No way you can have full-time benefits--way too expensive! Maybe I’ll consider you for full time benefits if you do at least 80 hours a week."
-                work_status = “Part time”
-            end
+                puts "#{@@boss_name}: No way you can have full-time benefits--way too expensive! Maybe I'll consider you for full time benefits if you do at least 80 hours a week."
+                work_status = "Part time"
+            end 
+
+
             user_obj.full_time = full_time
             user_obj.hours_scheduled = selection_hash[:hrs]
-            puts "\nYou are now scheduled for #{selection_hash[:hrs]} hours and have #{work_status} benefits"
-            self.return_to_work
-        end
 
-    
+            puts "\nYou are now scheduled for #{selection_hash[:hrs]} hours and have #{work_status} benefits"
+
+            self.return_to_work
+        end 
 
         if selection == "EWWWW! What's that smell?"
             dead_pets = []
@@ -343,13 +348,9 @@ class CLI
             sleep(2)
             CLI.title_screen
         end
-    
-    
-       
-
-    
 
     end
+
 
     def self.return_to_work
         new_prompt = TTY::Prompt.new
