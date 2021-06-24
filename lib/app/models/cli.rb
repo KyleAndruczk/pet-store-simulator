@@ -195,6 +195,8 @@ class CLI
         user_obj = Employee.all.find {|emp| emp.id == @@user.id}
 
         5.times do
+            species = ["Cat", "Dog", "Bird", "Lizard", "Frog"]
+            Pet.create(nickname: Faker::FunnyName.name, species: species.sample, weight: rand(1.0..20.0).round(2), age: rand(1..20), alive: rand(0..1), years_in_captivity: rand(0..10), price: rand(1.5...100.0).round(2))
             Adoption.create(employee_id: user_obj.id, pet_id: Pet.ids.sample)
         end
         # sleep(8)
