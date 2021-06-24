@@ -186,11 +186,11 @@ class CLI
             full_time = 1
         end
 
-        puts "#{@@boss_name}:  Congratulations, #{@@resume[:name]}, you're hired! Since you only have #{@@resume[:exp]} years of experience,\n\t you'll be payed half of our average salary and work 10 more hours than you asked,\n\t because, ya know, capitalism"
-        puts "\nStarting Salary: $#{(avg_wage/2.0).to_i}\tHours Scheduled: #{(@@resume[:hours] + 10)}"
+        puts "#{@@boss_name}:  Congratulations, #{@@resume[:name]}, you're hired! #{@@resume[:hours]} hours sounds great! Since you only have #{@@resume[:exp]} years of experience,\n\t you'll be payed half of our average salary\n\t because, ya know, capitalism"
+        puts "\nStarting Salary: $#{(avg_wage/2.0).to_i}\tHours Scheduled: #{(@@resume[:hours])}"
         # salary 
         
-        @@user = Employee.add_to_db(@@resume[:name], @@resume[:exp], full_time, (@@resume[:hours] + 10), @@resume[:age], (avg_wage/2.0).to_i, store_obj.id)
+        @@user = Employee.add_to_db(@@resume[:name], @@resume[:exp], full_time, (@@resume[:hours]), @@resume[:age], (avg_wage/2.0).to_i, store_obj.id)
         # for some reason using @@user.pets later was causing bugs
         user_obj = Employee.all.find {|emp| emp.id == @@user.id}
 

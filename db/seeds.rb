@@ -40,7 +40,7 @@ end
 
 
 20.times do 
-    Employee.create(name: Faker::FunnyName.name, years_experience: rand(1..5), full_time: rand(0..1), hours_scheduled: rand(0..40), age: rand(16..80), salary: rand(8000..40000), store_id: Store.ids.sample)
+    Employee.create(name: Faker::FunnyName.name, years_experience: rand(0..8), full_time: rand(0..1), hours_scheduled: rand(0..40), age: rand(16..80), salary: rand(8000..40000), store_id: Store.ids.sample)
 end
 
 puts "Done creating employees!"
