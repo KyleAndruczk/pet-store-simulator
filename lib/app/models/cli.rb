@@ -194,7 +194,7 @@ class CLI
         # for some reason using @@user.pets later was causing bugs
         user_obj = Employee.all.find {|emp| emp.id == @@user.id}
 
-        5.times do 
+        5.times do
             Adoption.create(employee_id: user_obj.id, pet_id: Pet.ids.sample)
         end
         # sleep(8)
@@ -331,15 +331,12 @@ class CLI
         end
     
         if selection == "Change what store I work at"
-            # system('clear')
-            # self.title
-            # prompt = TTY::Prompt.new
-            # @@chosen_store = prompt.select("What store do you want to change to?\n") do |menu|
-            #     Store.all.map do |store|
-            #     menu.choice "#{store.name.rjust(20)}" + "\n\tAverage Wage: $#{store.avg_wage}" + "\t |   Number of Employees: #{store.num_emps_at_store}\n"
-            #     end
-                
-            # end
+
+            # ids_arr = Employee.ids
+            # ids_arr.delete(user_obj.id)
+            user_obj.remove_all_pets
+
+            Employee.destroy(user_obj.id)
             self.choose_store
             self.get_hired
             self.return_to_work
@@ -347,6 +344,7 @@ class CLI
         end
     
         if selection == "Quit my job!"
+            user_obj.remove_all_pets
             Employee.destroy(user_obj.id)
             puts "\nCongratulations, you have quit your job!"
             sleep(2)

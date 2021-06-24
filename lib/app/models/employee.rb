@@ -77,6 +77,11 @@ class Employee < ActiveRecord::Base
         end
     end
 
+    def remove_all_pets
+        pets_arr = self.pets.ids
+        Pet.destroy(pets_arr)
+    end
+
     def self.add_to_db(name, years, full_time, hours, age, salary, store_id)
         self.create(name: name, years_experience: years, full_time: full_time, hours_scheduled: hours, age: age, salary: salary, store_id: store_id)
     end
